@@ -48,6 +48,7 @@ void			add_to_list(char *str, t_all *tool, int k)
 	check_repeat(str, tool->al[k]);
 	pos = tool->al[k]->next;
 	VCHECK((new = (t_adjlist*)ft_memalloc(sizeof(t_adjlist))));
+	ft_bzero(new, sizeof(t_adjlist));
 	new->room = find_room(str, tool);
 	tool->al[k]->next = new;
 	new->next = pos;

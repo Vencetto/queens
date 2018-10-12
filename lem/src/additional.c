@@ -38,9 +38,9 @@ void			print_rooms(t_all *tool)
 	ft_printf("\n  Rooms:\n------------\n");
 	while (room)
 	{
-		ft_printf("%s -> id: %d, step: %d, coords [%d, %d] ",
+		ft_printf("%s -> id: %d, step: %d, coords [%d, %d] visit %d",
 			room->name, room->id, room->step, room->coord_x,
-			room->coord_y);
+			room->coord_y, room->visited);
 		if (room->type == START)
 			ft_printf("-> START");
 		else if (room->type == END)
@@ -56,7 +56,7 @@ void			print_al(t_all *tool)
 	int			i;
 	t_adjlist	*temp;
 
-	ft_printf("\n  Adjlist of links\n------------\n");
+	ft_printf("\n  Links\n------------\n");
 	i = 0;
 	while (tool->al[i])
 	{
@@ -74,9 +74,9 @@ void			print_al(t_all *tool)
 
 void			init_adjlist(t_all *tool, int size)
 {
-	VCHECK((tool->al = (t_adjlist **)ft_memalloc(sizeof(t_adjlist *)
+	VCHECK((tool->al = (t_adjlist**)ft_memalloc(sizeof(t_adjlist*)
 			* (size + 1))));
-	tool->al[size] = NULL;
+	tool->al_size = size;
 }
 
 void			just_exit(char *str)

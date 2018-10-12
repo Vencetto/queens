@@ -18,18 +18,20 @@ void				write_info(t_all *tool, char *str)
 	t_info			*info;
 
 	VCHECK((info = (t_info *)ft_memalloc(sizeof(t_info))));
-	VCHECK((info->str = (char *)ft_memalloc(sizeof(char) *
-		(ft_strlen(str) + 1))));
+//	ft_bzero(info, sizeof(t_info));
+	VCHECK((info->str = (char *)ft_memalloc(sizeof(char) * (ft_strlen(str) + 1))));
 	ft_strcpy(info->str, str);
 	if (!tool->info)
 	{
 		last = info;
 		tool->info = info;
+		last->next = NULL;
 	}
 	else
 	{
 		last->next = info;
 		last = info;
+		last->next = NULL;
 	}
 }
 

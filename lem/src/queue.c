@@ -25,42 +25,52 @@ t_adjlist	*get_all_links(t_room *currentvertex, t_all *tool)
 	return (NULL);
 }
 
-void		init_queue(t_que *queue, t_all *tool)
+void		init_queue(t_all *tool)
 {
-	VCHECK((queue = (t_que *)ft_memalloc(sizeof(t_que))));
+	t_que	*new;
+
+	VCHECK((new = (t_que*)ft_memalloc(sizeof(t_que))));
 	tool->start->visited = 1;
 	tool->start->step = 1;
-	queue->room = tool->start;
-	queue->next = NULL;
-	tool->q_start = queue;
-	tool->q_end = queue;
-	tool->q_size++;
+	new->room = tool->start;
+	new->next = NULL;
+	tool->q_start = new;
+	tool->q_end = new;
+	tool->q_size = 1;
 }
 
 void		enqueue(t_all *tool, t_adjlist *al, int step)
 {
 	t_que	*new;
 
-	VCHECK((new = (t_que *)ft_memalloc(sizeof(t_que))));
+	VCHECK((new = (t_que*)ft_memalloc(sizeof(t_que))));
 	new->room = al->room;
-	tool->q_end->next = new;
+	if (!tool->q_start)
+		tool->q_start = new;
+	if (tool->q_end)
+		tool->q_end->next = new;
 	tool->q_end = new;
 	new->room->visited = 1;
-	new->room->step = step;
+		new->room->step = step;
 	new->next = NULL;
 	tool->q_size++;
 }
 
-t_room		*dequeue(t_all *tool, t_room *room)
+t_room		*dequeue(t_all *tool)
 {
 	t_que	*temp;
+	t_room	*tmp_room;
 
 	temp = tool->q_start;
-	if (tool->q_start->room == room)
+	if (temp)
 	{
+		tmp_room = temp->room;
 		tool->q_start = tool->q_start->next;
 		free(temp);
+		tool->q_size--;
+		if (!tool->q_start)
+			tool->q_end = NULL;
+		return (tmp_room);
 	}
-	tool->q_size--;
-	return (tool->q_start->room);
+	return (NULL);
 }

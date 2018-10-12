@@ -140,7 +140,7 @@ void		parse(t_all *tool, int fd)
 {
 	int		id;
 
-	id = 0;
+	id = -1;
 	check_for_ants(tool, fd);
 	check_for_rooms(tool, fd, id);
 	check_start_end(tool);

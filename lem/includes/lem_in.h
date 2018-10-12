@@ -76,6 +76,7 @@ typedef	struct			s_all
 	size_t				q_size;
 
 	t_adjlist			**al;
+	int					al_size;
 
 	int					ants;
 	t_ant				*l_ants;
@@ -107,9 +108,9 @@ void					algo(t_all *tool);
 void					ft_bfs(t_all *tool);
 t_room					*find_room(char *str, t_all *tool);
 void					init_adjlist(t_all *tool, int size);
-t_room					*dequeue(t_all *tool, t_room *room);
+t_room					*dequeue(t_all *tool);
 void					enqueue(t_all *tool, t_adjlist *al, int step);
-void					init_queue(t_que *queue, t_all *tool);
+void					init_queue(t_all *tool);
 t_adjlist				*get_all_links(t_room *currentvertex, t_all *tool);
 int						is_in_arr(char *str, t_all *tool);
 int						find_free_space(t_adjlist **al);

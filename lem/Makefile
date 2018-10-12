@@ -19,7 +19,7 @@ SRC  =	src/main.c src/additional.c src/parse.c src/checking.c src/create.c \
 OBJ = $(SRC:.c=.o)
 
 FLAGS = -Wall -Wextra -Werror
-# SEGF = -fsanitize=address
+SEGF = -fsanitize=address
 
 all: $(NAME)
 

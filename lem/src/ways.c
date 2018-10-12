@@ -34,7 +34,7 @@ void			create_path(t_room *room, t_all *tool, int num)
 {
 	t_adjlist	*new;
 
-	VCHECK((new = (t_adjlist*)malloc(sizeof(t_adjlist))));
+	VCHECK((new = (t_adjlist*)ft_memalloc(sizeof(t_adjlist))));
 	new->room = room;
 	tool->ways[num] = new;
 	new->next = NULL;
@@ -46,7 +46,7 @@ void			add_to_path(t_room *room, t_all *tool, int num)
 	t_adjlist	*new;
 
 	pos = tool->ways[num];
-	VCHECK((new = (t_adjlist *)ft_memalloc(sizeof(t_adjlist))));
+	VCHECK((new = (t_adjlist*)ft_memalloc(sizeof(t_adjlist))));
 	new->room = room;
 	tool->ways[num] = new;
 	new->next = pos;

@@ -72,7 +72,7 @@ void			flags(char **av, t_all *tool)
 	i = 0;
 	while (av[++i])
 	{
-		if (ft_strcmp(av[i], "-al") == 0)
+		if (ft_strcmp(av[i], "-l") == 0)
 			print_al(tool);
 		if (ft_strcmp(av[i], "-r") == 0)
 			print_rooms(tool);
@@ -90,15 +90,17 @@ int				main(int ac, char **av)
 		if (av[1] && ft_strcmp(av[1], "-h") == 0)
 		{
 			ft_printf("usage: ./lem-in [file]  [-w -> shows all ways]\n\t\t"
-					"	[-al -> shows list of links]\n\t\t"
+					"	[-l -> shows list of links]\n\t\t"
 					"	[-r -> shows list of rooms]\n");
 			exit(1);
 		}
-		ft_bzero(&tool, sizeof(tool));
-		parse(&tool, 0);
+		ft_bzero(&tool, sizeof(t_all));
+		int fd = open(av[1], O_RDONLY);
+		parse(&tool, fd);
 		algo(&tool);
 		make_ants(tool.ants, &tool);
 		real_ways(&tool);
+		printf ("\n##c %d %d\n\n", tool.qt_ways, tool.real_ways);
 		if (tool.qt_ways <= 0 || tool.real_ways <= 0)
 			just_exit("ERROR. NOT ENOUGHT DATA OR NO WAY");
 		go_ants(&tool);

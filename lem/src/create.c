@@ -25,8 +25,8 @@ void				fill_room(char *line, t_room *room, t_all *tool)
 	if (!line)
 		return ;
 	arr = ft_strsplit(line, SPACE);
-	VCHECK((room->name = (char *)ft_memalloc(sizeof(char) *
-			ft_strlen(arr[0]) + 1)));
+	VCHECK((room->name = (char *)ft_memalloc(sizeof(char)
+		* ft_strlen(arr[0]) + 1)));
 	if (!check_all_names(tool, arr[0]))
 		just_exit("ERROR. ROOMS WITH SAME NAMES");
 	ft_strncpy(room->name, arr[0], ft_strlen(arr[0]));
@@ -51,24 +51,26 @@ void				create_room(int type, char *line, t_all *tool, int id)
 	t_room			*room;
 
 	write_info(tool, line);
-	VCHECK((room = (t_room *)ft_memalloc(sizeof(t_room))));
-	ft_bzero(room, sizeof(room));
+	VCHECK((room = (t_room*)ft_memalloc(sizeof(t_room))));
+	ft_bzero(room, sizeof(t_room));
 	if (!tool->rooms)
 	{
 		last = room;
 		tool->rooms = room;
+		last->next = NULL;
 	}
 	else
 	{
 		last->next = room;
 		last = room;
+		last->next = NULL;
 	}
 	room->id = id;
 	room->type = type;
 	(type == START) ? (tool->start = room) : 0;
 	(type == END) ? (tool->end = room) : 0;
-	room->coord_x = -12;
-	room->coord_y = -12;
+	room->coord_x = -129876;
+	room->coord_y = -129876;
 	fill_room(line, room, tool);
 }
 
@@ -86,11 +88,12 @@ int					is_in_arr(char *str, t_all *tool)
 {
 	int				k;
 
-	k = -1;
-	while (tool->al[++k])
+	k = 0;
+	while (tool->al[k] && k < tool->al_size)
 	{
 		if (ft_strcmp(tool->al[k]->room->name, str) == 0)
 			return (k);
+		k++;
 	}
 	return (-1);
 }

@@ -27,17 +27,21 @@ void				make_ant(t_all *tool, int number)
 	static	t_ant	*last;
 
 	VCHECK((new = (t_ant *)ft_memalloc(sizeof(t_ant))));
+	ft_bzero(new, sizeof(t_adjlist));
 	if (!tool->l_ants)
 	{
 		last = new;
 		tool->l_ants = new;
+		last->next = NULL;
 	}
 	else
 	{
 		last->next = new;
 		last = new;
+		last->next = NULL;
 	}
 	new->numb = number;
+	new->way = NULL;
 }
 
 void				make_ants(int ants, t_all *tool)
@@ -45,7 +49,6 @@ void				make_ants(int ants, t_all *tool)
 	int				i;
 	t_adjlist		*temp;
 
-	tool->l_ants = NULL;
 	i = -1;
 	while (++i < ants)
 		make_ant(tool, i + 1);

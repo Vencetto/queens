@@ -33,16 +33,16 @@ int				in_queue(t_room *room, t_all *tool)
 
 void			ft_bfs(t_all *tool)
 {
-	t_que		*queue;
 	t_room		*currentvertex;
 	t_adjlist	*tmp;
 
-	queue = NULL;
-	init_queue(queue, tool);
+	init_queue(tool);
 	while (!is_empty(tool))
 	{
-		currentvertex = dequeue(tool, currentvertex);
+		currentvertex = dequeue(tool);
 		tmp = get_all_links(currentvertex, tool);
+		if (!tmp)
+			return ;
 		while (tmp)
 		{
 			if (tmp->room->visited == 0 && !in_queue(tmp->room, tool))
